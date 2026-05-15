@@ -1,0 +1,12 @@
+fastapi
+uvicorn
+transformers
+torch
+pydantic
+spacy>=3.0.0
+# OCR dependencies
+easyocr
+pdf2image
+Pillow
+opencv-python-headless
+pymupdf

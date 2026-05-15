@@ -1,0 +1,545 @@
+:root {
+    --pd-bg: #f0f7ff;
+    --pd-card-bg: rgba(255, 255, 255, 0.85);
+    --pd-sidebar-bg: #fff;
+    --pd-accent: #3b82f6;
+    --pd-accent-light: #dbeafe;
+    --pd-text: #1e293b;
+    --pd-text-muted: #64748b;
+    --pd-border: rgba(255, 255, 255, 0.5);
+    --pd-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+    --pd-radius: 24px;
+}
+
+.pd-wrapper {
+    background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 50%, #ffffff 100%);
+    min-height: 100vh;
+    color: var(--pd-text);
+    font-family: 'Inter', sans-serif;
+    display: flex;
+}
+
+/* ── Content Area ── */
+.pd-content {
+    flex: 1;
+    padding: 2.5rem;
+    overflow-y: auto;
+}
+
+.pd-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2.5rem;
+}
+
+.pd-greeting {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--pd-text);
+}
+
+.pd-top-actions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.pd-icon-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--pd-sidebar-bg);
+    border: 1px solid var(--pd-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--pd-shadow);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.pd-icon-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* ── Grid Layout ── */
+.pd-main-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+}
+
+.pd-left-column {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.pd-right-column {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* ── Widget Cards ── */
+.pd-card {
+    background: var(--pd-card-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--pd-border);
+    border-radius: var(--pd-radius);
+    padding: 2rem;
+    box-shadow: var(--pd-shadow);
+}
+
+.pd-card-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: var(--pd-text);
+}
+
+/* ── Stat Rows ── */
+.pd-stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+}
+
+.pd-stat-widget {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.pd-stat-value-row {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+}
+
+.pd-stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+.pd-stat-trend {
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 0.2rem 0.6rem;
+    border-radius: 12px;
+}
+
+.pd-trend-up {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.pd-trend-down {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.pd-stat-desc {
+    font-size: 0.85rem;
+    color: var(--pd-text-muted);
+    line-height: 1.4;
+}
+
+/* ── Progress Bar ── */
+.pd-progress-track {
+    height: 12px;
+    background: #e2e8f0;
+    border-radius: 6px;
+    margin-top: 1rem;
+    overflow: hidden;
+}
+
+.pd-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #3b82f6, #60a5fa);
+    border-radius: 6px;
+}
+
+/* ── Emotional State Chart Area ── */
+.pd-chart-container {
+    height: 240px;
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding-top: 1rem;
+    position: relative;
+}
+
+.pd-chart-bar-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.pd-chart-bar-stack {
+    width: 40px;
+    background: #f1f5f9;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.pd-chart-fill {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.pd-chart-fill-primary {
+    background: linear-gradient(to top, #3b82f6, #93c5fd);
+}
+
+.pd-chart-fill-secondary {
+    background: repeating-linear-gradient(45deg, #cbd5e1, #cbd5e1 5px, #f1f5f9 5px, #f1f5f9 10px);
+    opacity: 0.5;
+}
+
+.pd-chart-label {
+    font-size: 0.75rem;
+    color: var(--pd-text-muted);
+}
+
+/* ── Urgent Support Card ── */
+.pd-urgent-card {
+    background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+    color: #fff;
+    padding: 2rem;
+    border-radius: var(--pd-radius);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.pd-urgent-card h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.pd-urgent-card p {
+    font-size: 0.95rem;
+    opacity: 0.9;
+    max-width: 80%;
+}
+
+.pd-urgent-btn {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    border-radius: 30px;
+    font-weight: 600;
+    margin-top: 2rem;
+    text-align: center;
+    transition: all 0.2s;
+}
+
+.pd-urgent-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.pd-urgent-illustration {
+    position: absolute;
+    bottom: -10px;
+    right: -10px;
+    width: 160px;
+    height: 160px;
+    opacity: 0.9;
+    box-shadow: 0 0 30px rgba(59, 130, 246, 0.2);
+}
+
+/* ── Exercise List ── */
+.pd-exercise-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.pd-exercise-item {
+    display: grid;
+    grid-template-columns: 48px 2fr 1fr 1fr 1fr 1fr;
+    align-items: center;
+    gap: 1rem;
+}
+
+.pd-exercise-icon {
+    width: 48px;
+    height: 48px;
+    background: #f1f5f9;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+}
+
+.pd-exercise-name {
+    font-weight: 600;
+}
+
+.pd-exercise-percent {
+    font-weight: 600;
+    color: var(--pd-text-muted);
+}
+
+.pd-exercise-time {
+    color: var(--pd-text-muted);
+}
+
+/* ── Activity Sidebar (Right) ── */
+.pd-calendar-widget {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.pd-calendar-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+}
+
+.pd-days-row {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    gap: 0.5rem;
+}
+
+.pd-day {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.5rem;
+}
+
+.pd-day-name {
+    font-size: 0.75rem;
+    color: var(--pd-text-muted);
+}
+
+.pd-day-number {
+    font-weight: 600;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.pd-day.active .pd-day-number {
+    background: var(--pd-accent);
+    color: #fff;
+    box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);
+}
+
+/* ── Appointment Item ── */
+.pd-appointment {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.pd-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.pd-app-info {
+    flex: 1;
+}
+
+.pd-app-name {
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.pd-app-role {
+    font-size: 0.8rem;
+    color: var(--pd-text-muted);
+}
+
+.pd-app-time {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-align: right;
+}
+
+.pd-app-date {
+    font-size: 0.75rem;
+    color: var(--pd-text-muted);
+}
+
+/* ── Session Records ── */
+.pd-session-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    border-radius: 16px;
+    transition: background 0.2s;
+    cursor: pointer;
+}
+
+.pd-session-item:hover {
+    background: #f8fafc;
+}
+
+.pd-play-btn {
+    width: 36px;
+    height: 36px;
+    background: var(--pd-accent-light);
+    color: var(--pd-accent);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ── Sidebar Redesign ── */
+.pd-sidebar {
+    width: 80px;
+    background: #fff;
+    border-right: 1px solid #f1f5f9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem;
+    gap: 2.5rem;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 100;
+    overflow-x: hidden;
+}
+
+.pd-sidebar.expanded {
+    width: 260px;
+    align-items: flex-start;
+}
+
+.pd-logo {
+    width: 40px;
+    height: 40px;
+    background: var(--pd-accent);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.pd-nav-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    flex: 1;
+    width: 100%;
+}
+
+.pd-nav-link {
+    width: 48px;
+    height: 48px;
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--pd-text-muted);
+    transition: all 0.2s ease;
+    cursor: pointer;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.pd-sidebar.expanded .pd-nav-link {
+    width: 100%;
+    justify-content: flex-start;
+    padding: 0 1rem;
+}
+
+.pd-nav-link.active {
+    background: var(--pd-text);
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.pd-nav-link:hover:not(.active) {
+    background: #f1f5f9;
+    color: var(--pd-text);
+}
+
+.pd-nav-label {
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    display: none;
+    /* Hide from layout when collapsed */
+    transition: opacity 0.2s ease;
+    font-weight: 500;
+    margin-left: 0.75rem;
+    font-size: 0.95rem;
+}
+
+.pd-sidebar.expanded .pd-nav-label {
+    opacity: 1;
+    visibility: visible;
+    display: block;
+    /* Show in layout when expanded */
+}
+
+/* ── Unified Page Layouts ── */
+.pd-page-header {
+    margin-bottom: 2rem;
+}
+
+.pd-page-title {
+    font-size: 2.25rem;
+    font-weight: 800;
+    color: var(--pd-text);
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+}
+
+.pd-page-desc {
+    color: var(--pd-text-muted);
+    font-size: 1rem;
+    max-width: 600px;
+    line-height: 1.6;
+}
+
+.pd-section-card {
+    background: var(--pd-card-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--pd-border);
+    border-radius: var(--pd-radius);
+    padding: 2.5rem;
+    box-shadow: var(--pd-shadow);
+}
+
+/* ── Responsive ── */
+@media (max-width: 1200px) {
+    .pd-main-grid {
+        grid-template-columns: 1fr;
+    }
+}

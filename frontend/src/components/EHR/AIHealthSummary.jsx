@@ -1,0 +1,112 @@
+import { useState } from 'react';
+import { Sparkles, RefreshCw, AlertTriangle } from 'lucide-react';
+
+function SummarySection({ title, items = [] }) {
+    if (!items?.length) return null;
+    return (
+        <div className="ehr-summary-section">
+            <div className="ehr-summary-section-title">{title}</div>
+            {items.map((item, i) => (
+                <div key={i} className="ehr-summary-bullet">{item}</div>
+            ))}
+        </div>
+    );
+}
+
+export default function AIHealthSummary({ summary, loading = false, onRegenerate }) {
+    const [regenerating, setRegenerating] = useState(false);
+
+    const handleRegenerate = async () => {
+        setRegenerating(true);
+        try { await onRegenerate?.(); } finally { setRegenerating(false); }
+    };
+
+    if (loading || regenerating) {
+        return (
+            <div className="ehr-summary-card">
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem', padding: '2rem', color: 'var(--text-muted)' }}>
+                    <div className="spinner" />
+                    <span>Generating AI health summary...</span>
+                    <span style={{ fontSize: '0.8rem', color: 'var(--text-dim)' }}>This may take a few seconds</span>
+                </div>
+            </div>
+        );
+    }
+
+    if (!summary) {
+        return (
+            <div className="ehr-summary-card">
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem', padding: '2rem', color: 'var(--text-muted)', textAlign: 'center' }}>
+                    <Sparkles size={32} style={{ opacity: 0.4 }} />
+                    <div>No AI summary generated yet.</div>
+                    <button className="btn btn-primary btn-sm" onClick={handleRegenerate}>
+                        <Sparkles size={14} /> Generate Summary
+                    </button>
+                </div>
+            </div>
+        );
+    }
+
+    if (summary.error) {
+        return (
+            <div className="ehr-summary-card" style={{ borderColor: 'rgba(239,68,68,0.25)' }}>
+                <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start', color: '#fca5a5' }}>
+                    <AlertTriangle size={18} style={{ flexShrink: 0, marginTop: '0.1rem' }} />
+                    <div>
+                        <div style={{ fontWeight: 600, marginBottom: '0.25rem' }}>Summary Generation Failed</div>
+                        <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>{summary.error}</div>
+                        <button className="btn btn-outline btn-sm" style={{ marginTop: '0.75rem' }} onClick={handleRegenerate}>
+                            <RefreshCw size={13} /> Retry
+                        </button>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    return (
+        <div className="ehr-summary-card">
+            <div className="ehr-summary-header">
+                <div className="ehr-summary-title">
+                    <Sparkles size={16} /> {summary.title || 'AI Health Summary'}
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                    {summary.generatedAt && (
+                        <span style={{ fontSize: '0.75rem', color: 'var(--text-dim)' }}>
+                            Generated {new Date(summary.generatedAt).toLocaleDateString('en-IN')}
+                        </span>
+                    )}
+                    <button className="btn btn-outline btn-sm" onClick={handleRegenerate} disabled={regenerating}>
+                        <RefreshCw size={13} /> Refresh
+                    </button>
+                </div>
+            </div>
+
+            {summary.overview && (
+                <p className="ehr-summary-overview">{summary.overview}</p>
+            )}
+
+            <div className="ehr-summary-sections">
+                <SummarySection title="📊 Vitals Snapshot" items={summary.vitalsSnapshot?.highlights} />
+                <SummarySection title="🤒 Symptoms Overview" items={summary.symptomsOverview?.recentSymptoms} />
+                <SummarySection title="📋 Reports Insights" items={summary.reportsInsights?.keyFindings} />
+                <SummarySection title="🩺 Triage History" items={summary.triageHistory?.assessments} />
+            </div>
+
+            {summary.watchPoints?.length > 0 && (
+                <div className="ehr-summary-watch">
+                    <div className="ehr-summary-watch-title">
+                        <AlertTriangle size={13} /> Watch Points
+                    </div>
+                    {summary.watchPoints.map((w, i) => (
+                        <div key={i} className="ehr-summary-bullet">{w}</div>
+                    ))}
+                </div>
+            )}
+
+            <div className="ehr-summary-disclaimer">
+                ⚕️ {summary.disclaimer || 'This summary is generated by VitalPath AI for informational purposes only. Please consult your doctor for clinical advice.'}
+            </div>
+        </div>
+    );
+}

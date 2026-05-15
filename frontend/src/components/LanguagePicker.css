@@ -1,0 +1,49 @@
+.lang-picker {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: #f1f5f9;
+    border-radius: 20px;
+    padding: 3px;
+}
+
+.lang-btn {
+    background: transparent;
+    border: none;
+    border-radius: 16px;
+    padding: 4px 10px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #64748b;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+}
+.lang-btn:hover {
+    background: #e2e8f0;
+    color: #334155;
+}
+.lang-btn-active {
+    background: #fff;
+    color: #3b82f6;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+/* ── Compact (dark bg, for voice mode topbar) ── */
+.lang-picker-compact {
+    background: rgba(255,255,255,0.08);
+}
+.lang-picker-compact .lang-btn {
+    color: #aaa;
+    font-size: 0.72rem;
+    padding: 3px 8px;
+}
+.lang-picker-compact .lang-btn:hover {
+    background: rgba(255,255,255,0.12);
+    color: #fff;
+}
+.lang-picker-compact .lang-btn-active {
+    background: rgba(255,255,255,0.18);
+    color: #fff;
+    box-shadow: none;
+}
