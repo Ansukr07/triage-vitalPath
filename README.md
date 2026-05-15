@@ -13,7 +13,7 @@
 2. [Key Features](#key-features)
 3. [Technology Stack](#technology-stack)
 4. [System Architecture](#system-architecture)
-5. [Medical Triage NLP + ML Pipelines](#-medical-triage-nlp--ml-pipelines)
+5. [Medical Triage NLP + ML Pipelines](#medical-triage-nlp--ml-pipelines)
 6. [Installation & Setup](#installation--setup)
 7. [API Documentation](#api-documentation)
 8. [Core Services](#core-services)
@@ -371,21 +371,35 @@ The system classifies patients into actionable care categories based on triage r
     │  • /api/chat           (AI chatbot)                     │
     └────────┬────────────────────────┬──────────────┬────────┘
              │                        │              │
-    ┌────────▼────────────┐  ┌────────▼──────────┐  └─────┐
-    │   MongoDB Database  │  │  ClinicalBERT    │        │
-    │   (Port 27017)      │  │  Microservice    │   External
-    ├─────────────────────┤  │  (Port 8000)     │   LLM APIs
-    │ Collections:        │  ├──────────────────┤   (Gemini/
-    │ • Users             │  │ • FastAPI        │    GPT-4)
-    │ • Patients          │  │ • Transformers   │
-    │ • Doctors           │  │ • spaCy NER      │
-    │ • TriageResults     │  │ • EasyOCR        │
-    │ • Symptoms          │  │ • pdf2image      │
-    │ • MedicalReports    │  └──────────────────┘
-    │ • AuditLogs         │
-    │ • Reminders         │
-    └─────────────────────┘
+    ┌────────▼────────────┐  ┌────────▼──────────┐  ┌──────────────────┐
+    │   MongoDB Database  │  │  ClinicalBERT    │  │   Local ML Model │
+    │   (Port 27017)      │  │  Microservice    │  │ (triage-assistant│
+    ├─────────────────────┤  │  (Port 8000)     │  │  -main/models/)  │
+    │ Collections:        │  ├──────────────────┤  ├──────────────────┤
+    │ • Users             │  │ • FastAPI        │  │ • scikit-learn:  │
+    │ • Patients          │  │ • Transformers   │  │   - Triage       │
+    │ • Doctors           │  │ • spaCy NER      │  │   - Risk Score   │
+    │ • TriageResults     │  │ • EasyOCR        │  │   - Emergency    │
+    │ • Symptoms          │  │ • pdf2image      │  │ • NLP pipelines  │
+    │ • MedicalReports    │  └──────────────────┘  │ • ML inference   │
+    │ • AuditLogs         │        ▲               └──────────────────┘
+    │ • Reminders         │        └─────────────────────────────┐
+    └─────────────────────┘                                      │
+                                                          External
+                                                          LLM APIs
+                                                         (Gemini/
+                                                          GPT-4)
 ```
+
+**Local ML Model Location**: `scratch/triage-assistant-main/models/`
+
+The system uses our own trained ML models:
+- `triage_classifier.pkl` — Triage categorization
+- `risk_score_regressor.pkl` — Risk scoring
+- `emergency_detector.pkl` — Emergency detection
+- `symptoms_list.json` — Canonical symptom dictionary
+- `severity_dict.json` — Symptom severity mappings
+- `feature_names.json` — Feature column ordering
 
 ### **Data Flow: Patient Intake & Triage**
 
