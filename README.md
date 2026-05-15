@@ -16,14 +16,10 @@
 5. [Medical Triage NLP + ML Pipelines](#-medical-triage-nlp--ml-pipelines)
 6. [Installation & Setup](#installation--setup)
 7. [API Documentation](#api-documentation)
-8. [Database Schema](#database-schema)
-9. [Core Services](#core-services)
-10. [User Roles & Workflows](#user-roles--workflows)
-11. [Security & Compliance](#security--compliance)
-12. [Deployment](#deployment)
-13. [Troubleshooting](#troubleshooting)
-14. [Contributing](#contributing)
-15. [Disclaimer](#disclaimer)
+8. [Core Services](#core-services)
+9. [User Roles & Workflows](#user-roles--workflows)
+10. [Security & Compliance](#security--compliance)
+11. [Deployment](#deployment)
 
 ---
 
