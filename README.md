@@ -44,15 +44,22 @@
 - **GP Practices**: Patient pre-assessment before doctor consultation
 - **Hospital Systems**: Centralized patient queue management across departments
 
-### Core Capabilities
+### 🌟 Core Features
+- **AI-Powered Symptom Triage Chatbot**: Utilizes multi-turn conversational logic to simulate a clinical interview. It dynamically adapts its questioning based on patient responses, ensuring no critical symptom is missed. Powered by fine-tuned LLMs for medical context and reasoning.
+- **Patient Symptom & History Collection**: Implements a structured intake system that captures onset, duration, frequency, and severity (1-10) for every symptom, while correlating data with a persistent longitudinal medical history stored in the EHR.
+- **NLP-Based Medical Query Understanding**: Deep clinical entity extraction using ClinicalBERT. It recognizes complex medical terminology, medications, and clinical findings from unstructured patient descriptions, converting them into structured data for the triage engine.
+- **Risk Scoring & Prioritization**: A sophisticated hybrid engine that weighs deterministic "Red Flag" rules against ML-predicted risk probabilities. Patients are automatically sorted in the doctor's queue based on their calculated clinical urgency and risk score.
+- **Emergency Alert Detection**: Real-time monitoring of life-threatening indicators (e.g., chest pain + low SpO2). Triggers an immediate full-screen emergency overlay for the patient with actionable instructions and simultaneous high-priority alerts to clinical staff.
+- **Care Recommendation Engine**: An evidence-based decision engine that maps complex triage outputs to simple, actionable care pathways. It provides the "Why" behind every recommendation, increasing patient trust and clinical transparency.
+- **Multi-turn Conversational Interface**: The AI agent follows up with relevant clinical questions to rule out exclusions or confirm high-risk indicators, mimicking the natural flow and rigor of a professional medical consultation.
+- **Health Guidance Dashboard**: A centralized command center for patients to view their medical journey. It visualizes health stability trends, upcoming consultations, and personalized guidance based on their specific symptom profile.
 
-- **AI-Powered Symptom Triage Chatbot**: Multi-turn conversational interface for symptom assessment.
-- **Patient Symptom and History Collection**: Structured collection of symptoms, severity, and medical history.
-- **NLP-Based Medical Query Understanding**: Deep analysis of patient queries using ClinicalBERT and LLMs.
-- **Risk Scoring and Prioritization**: Hybrid rule-based and ML scoring for patient prioritization.
-- **Emergency Alert Detection**: Instant detection of high-risk symptoms for immediate escalation.
-- **Care Recommendation Engine**: Automated classification into Home Care, Clinic Visit, or Emergency Room.
-- **Health Guidance Dashboard**: Personal dashboard for patients to track health trends and recommendations.
+
+### 🏥 Care Recommendation Levels
+- **🏠 Home Care**: Suitable for minor, self-limiting symptoms (e.g., mild cold, stable vitals). Provides the patient with automated self-care guidance, lifestyle adjustments, and specific "worsening symptoms" to monitor for.
+- **🏥 Clinic Visit**: Recommended for moderate symptoms requiring professional diagnostic evaluation (e.g., persistent abdominal pain, high fever). Facilitates scheduling and provides a clinical summary for the upcoming consultation.
+- **🚨 Emergency Room**: Reserved for high-risk, acute, or life-threatening symptoms (e.g., chest pain, respiratory distress, severe trauma). Triggers immediate emergency protocols, including location-based hospital routing and staff alerts.
+
 
 ---
 
@@ -209,7 +216,40 @@ The system classifies patients into actionable care categories based on triage r
 
 ---
 
-### 8. **Premium Design & UX** 🎨
+### 8. **Electronic Health Records (EHR) System** 🏥
+
+**Persistent Medical Profiles**
+- Comprehensive tracking of patient demographics, allergies, chronic conditions, and past surgeries.
+- Unified access point for doctors to view all historical triage sessions, AI summaries, and clinical notes.
+
+**Health Stability & Risk Tracking**
+- Real-time **Health Stability Trend** charting.
+- Longitudinal tracking of both mental and physical risk scores.
+
+**Intelligent Search & Summarization**
+- AI-generated health summaries summarizing the patient's entire medical history for quick clinical review.
+- Advanced keyword filtering and temporal sorting to locate past incidents and reports.
+
+---
+
+### 9. **Predictive Outbreak Analysis** 🗺️
+
+**Open-Source Geospatial Stack**
+- Fully integrated zero-cost, API-key-free mapping stack utilizing **Leaflet** and **OpenStreetMap**.
+- Dark-themed, medical-grade CartoDB basemap ensuring maximum contrast and legibility for analytics.
+
+**Dynamic Disease Heatmaps**
+- Automated plotting of active disease clusters (e.g., Dengue, Typhoid, Chikungunya).
+- Visual heat intensity scaled relative to the severity and density of outbreaks.
+
+**Location-Specific Analytics**
+- Real-time calculation of zone-specific metrics (`In Today`, `Out Today`, `Total Resolved`).
+- Interactive dashboard components that dynamically filter when a clinician clicks an outbreak marker.
+- Glassmorphic popup cards providing instant localized intelligence without requiring page reloads.
+
+---
+
+### 10. **Premium Design & UX** 🎨
 
 **Visual Theme**: Glassmorphic, charcoal/slate aesthetic
 - Frosted glass effects with subtle gradients
@@ -225,17 +265,19 @@ The system classifies patients into actionable care categories based on triage r
 
 ---
 
-### 9. **Advanced & Future Features** 🚀
+### 11. **Advanced Features** 🚀
+- **🎙️ Voice-Enabled Healthcare Assistant**: Integrates Speech-to-Text and Text-to-Speech technologies to allow hands-free interaction. Optimized for accessibility, allowing patients with limited mobility or vision to complete triage via natural voice commands.
+- **🌐 Multilingual Healthcare Support**: Robust internationalization framework providing real-time translation of the interface and AI responses. Currently supports multiple languages to bridge communication gaps in diverse healthcare settings.
+- **⌚ Wearable Device Integration**: Direct synchronization with smartwatches and health sensors. Automatically pulls real-time Heart Rate, SpO2, and activity data to provide a continuous stream of objective vitals for more accurate risk assessment.
+- **📈 Real-time Vital Sign Monitoring**: Visualizes vital sign trends over time, highlighting anomalies and significant deviations. Predictive analytics identify potential health dips before they become critical, enabling proactive intervention.
+- **📄 AI-Generated Health Reports**: One-click generation of professional clinical summaries. These reports aggregate symptoms, vitals, and AI findings into a downloadable PDF format, ready for the patient to share with their primary care provider.
+- **📹 Video Consultation Integration**: Seamlessly bridges the gap between digital triage and human care. When a "Clinic Visit" is recommended, patients can launch a secure, WebRTC-powered video call directly within the platform.
+- **🏥 Electronic Health Record (EHR) Support**: A comprehensive digital record system that persists patient data across sessions. Stores allergies, chronic conditions, and past surgical history, providing doctors with a 360-degree view of patient health.
+- **🧠 Mental Health Assessment Module**: Integrated screening tools for psychological wellbeing. Assesses anxiety, depression, and stress levels through validated clinical scales, correlating mental health data with physical risk scores for holistic care.
+- **🗺️ Predictive Outbreak Analysis**: A geospatial intelligence tool that monitors local disease clusters. Uses anonymized triage data to generate Leaflet-based heatmaps, alerting public health officials to emerging outbreaks in real-time.
+- **🔔 AI-Based Medication Reminders**: Intelligent scheduling engine that tracks medication adherence. Sends smart notifications to patients and allows clinicians to monitor compliance, reducing the risk of treatment failure due to missed doses.
 
-- **Voice-Enabled Healthcare Assistant**: Natural language voice interaction for hands-free intake.
-- **AI-Generated Health Reports**: Professional, downloadable clinical summaries in PDF format.
-- **AI-Based Medication Reminders**: Intelligent scheduling and adherence tracking.
-- **Multilingual Healthcare Support**: Support for diverse patient populations in multiple languages.
-- **Wearable Integration**: Real-time vital sign monitoring from smartwatches and sensors.
-- **Video Consultation Integration**: Seamless transition from chat triage to tele-health visits.
-- **Electronic Health Record (EHR) Support**: Bidirectional sync with major hospital EHR systems.
-- **Mental Health Assessment**: Specialized modules for anxiety, depression, and stress screening.
-- **Predictive Outbreak Analysis**: Community-level data analysis to detect early disease trends.
+
 
 ---
 
@@ -1455,47 +1497,6 @@ const summary = await summarizePatientForDoctor({
 
 ## 🚀 Deployment
 
-### **Production Checklist**
-
-- [ ] Set `NODE_ENV=production`
-- [ ] Use strong JWT secrets (32+ chars, random)
-- [ ] Enable HTTPS/TLS
-- [ ] Configure MongoDB Atlas (or production DB)
-- [ ] Set up monitoring/logging (New Relic, DataDog, etc.)
-- [ ] Configure error tracking (Sentry)
-- [ ] Enable rate limiting
-- [ ] Set up backup strategy
-- [ ] Load test ML service
-- [ ] GDPR/HIPAA compliance review
-
-### **Docker Deployment**
-
-**Backend Dockerfile**:
-```dockerfile
-FROM node:18-alpine
-WORKDIR /app
-COPY package.json package-lock.json ./
-RUN npm ci --only=production
-COPY . .
-EXPOSE 5000
-CMD ["node", "server.js"]
-```
-
-**Frontend Dockerfile**:
-```dockerfile
-FROM node:18-alpine as builder
-WORKDIR /app
-COPY package.json package-lock.json ./
-RUN npm ci
-COPY . .
-RUN npm run build
-
-FROM nginx:alpine
-COPY --from=builder /app/dist /usr/share/nginx/html
-COPY nginx.conf /etc/nginx/nginx.conf
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
-```
 
 ### **Environment-Specific Configuration**
 
@@ -1516,119 +1517,6 @@ MONGO_URI=mongodb+srv://prod-user:pwd@prod-cluster.mongodb.net/medic_prod
 ```
 
 ---
-
-## 🐛 Troubleshooting
-
-### **Backend Issues**
-
-#### MongoDB Connection Error
-```
-Error: connect ECONNREFUSED 127.0.0.1:27017
-```
-
-**Solution**:
-```bash
-# Ensure MongoDB is running
-mongod --dbpath "C:\data\db"
-
-# Or use MongoDB Atlas
-# Update MONGO_URI in .env
-```
-
-#### ML Service Unavailable
-```
-⚠️  ML service unavailable. Using rule-engine only.
-```
-
-**Solution**:
-- Check if ClinicalBERT service is running: `python clinical_bert_app.py`
-- Verify ML_SERVICE_URL in .env matches actual service URL
-- Check firewall/ports not blocked
-
-#### LLM API Key Invalid
-```
-Error: 401 Unauthorized - Invalid API key
-```
-
-**Solution**:
-- Verify API key in .env (Google Generative AI or OpenAI)
-- Check key hasn't been rotated
-- Ensure correct model name for chosen provider
-
-### **Frontend Issues**
-
-#### Hot Module Replacement (HMR) Not Working
-```
-[vite] failed to update on error: 404
-```
-
-**Solution**:
-```bash
-# Restart Vite dev server
-npm run dev
-
-# Or clear cache
-rm -rf node_modules/.vite
-npm run dev
-```
-
-#### API 401 Unauthorized
-```
-fetch failed: 401 Unauthorized
-```
-
-**Solution**:
-- Check auth context initialized
-- Verify token stored in localStorage
-- Try logout + login to refresh token
-
-### **ML Service Issues**
-
-#### ClinicalBERT Model Download Failed
-```
-requests.exceptions.ConnectionError: Max retries exceeded
-```
-
-**Solution**:
-- Check internet connection
-- Manual model download:
-  ```bash
-  python -m transformers.utils.hub PreTrainedModel --cache_dir ./models
-  ```
-- Use offline mode (pre-cache models)
-
-#### Out of Memory (OOM) During Inference
-```
-CUDA out of memory
-```
-
-**Solution**:
-- Reduce batch size in clinical_bert_app.py
-- Use CPU instead of GPU:
-  ```python
-  device = 'cpu'  # in clinical_bert_app.py
-  ```
-- Increase server memory allocation
-
-### **Common Errors & Fixes**
-
-| Error | Cause | Fix |
-|---|---|---|
-| `SyntaxError: Unexpected token` | Old Node version | Update to v18+ |
-| `TypeError: Cannot read property 'x' of undefined` | Uninitialized state | Check React state initialization |
-| `EACCES: permission denied` | File permissions | Run with sudo or fix permissions |
-| `EADDRINUSE: address already in use :::5000` | Port already in use | Kill process: `lsof -i :5000` then kill |
-| `Module not found: 'fastapi'` | Python dependencies not installed | `pip install -r requirements.txt` |
-
----
-
-## 📝 Contributing
-
-### **Code Style**
-
-- **JavaScript**: ESLint + Prettier
-- **Python**: PEP 8 + Black
-- **Commits**: Conventional Commits (feat:, fix:, docs:, test:)
 
 ### **Branch Strategy**
 
@@ -1655,52 +1543,6 @@ npm run lint
 pytest backend/scripts/test_clinical_bert.py
 ```
 
-### **Pull Request Process**
-
-1. Fork repository
-2. Create feature branch: `git checkout -b feature/my-feature`
-3. Commit changes: `git commit -m "feat: add my feature"`
-4. Push to branch: `git push origin feature/my-feature`
-5. Open PR against `develop` branch
-6. Code review + approval required
-7. Merge when tests pass
-
----
-
-## ⚖️ Legal Disclaimer
-
-**CRITICAL**: VitalPath is a **decision-support tool only**, not a medical device.
-
-### Key Points
-
-❌ **VitalPath CANNOT**:
-- Provide medical diagnoses
-- Recommend treatments or medications
-- Replace clinical judgment
-- Guarantee triage accuracy
-- Make medical decisions
-
-✅ **VitalPath IS**:
-- A tool to assist healthcare professionals
-- Fully reviewable and overridable by doctors
-- Transparent in its reasoning
-- Logged for audit trail
-- Decision-support only
-
-### Clinical Responsibility
-
-- **A licensed healthcare professional must review and validate every recommendation**
-- Doctors retain full clinical authority
-- Triage outputs are suggestions, not mandates
-- All clinical decisions must comply with local regulations and standards
-- Hospital policies override system recommendations
-
-### Liability
-
-- Users assume full responsibility for clinical decisions
-- VitalPath developers assume no liability for patient outcomes
-- Always follow your institution's protocols and guidelines
-- Escalate critical cases immediately regardless of triage output
 
 ### Regulatory Status
 
@@ -1711,33 +1553,7 @@ pytest backend/scripts/test_clinical_bert.py
 
 ---
 
-## 📞 Support & Contact
-
-- **Issues**: GitHub Issues
-- **Documentation**: [Wiki](https://github.com/Ansukr07/VitalPath/wiki)
-- **Email**: support@vitalpath.com
-- **Slack Community**: [Join our Slack](https://vitalpath.slack.com)
-
----
-
-## 📄 License
-
-Copyright © 2026 VitalPath. All rights reserved.
-
-This software is proprietary and confidential. Unauthorized copying or use is strictly prohibited.
-
----
-
-## 🙏 Acknowledgments
-
-- **ClinicalBERT**: Hugging Face Transformers
-- **FastAPI**: Sebastián Ramírez
-- **React 19**: Meta/Facebook team
-- **Vite**: Evan You
-- **MongoDB**: MongoDB Inc.
-
----
 
 Built with ❤️ for better healthcare outcomes.
 
-**Questions? Check the [Documentation Wiki](https://github.com/Ansukr07/VitalPath/wiki) or open an issue!**
+**Questions? open an issue!**
