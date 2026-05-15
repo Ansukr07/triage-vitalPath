@@ -13,16 +13,17 @@
 2. [Key Features](#key-features)
 3. [Technology Stack](#technology-stack)
 4. [System Architecture](#system-architecture)
-5. [Installation & Setup](#installation--setup)
-6. [API Documentation](#api-documentation)
-7. [Database Schema](#database-schema)
-8. [Core Services](#core-services)
-9. [User Roles & Workflows](#user-roles--workflows)
-10. [Security & Compliance](#security--compliance)
-11. [Deployment](#deployment)
-12. [Troubleshooting](#troubleshooting)
-13. [Contributing](#contributing)
-14. [Disclaimer](#disclaimer)
+5. [Medical Triage NLP + ML Pipelines](#-medical-triage-nlp--ml-pipelines)
+6. [Installation & Setup](#installation--setup)
+7. [API Documentation](#api-documentation)
+8. [Database Schema](#database-schema)
+9. [Core Services](#core-services)
+10. [User Roles & Workflows](#user-roles--workflows)
+11. [Security & Compliance](#security--compliance)
+12. [Deployment](#deployment)
+13. [Troubleshooting](#troubleshooting)
+14. [Contributing](#contributing)
+15. [Disclaimer](#disclaimer)
 
 ---
 
@@ -425,6 +426,166 @@ Doctor Reviews & Can Override
         ▼
 Audit Log Entry Created
 ```
+
+---
+
+## 🧠 Medical Triage NLP + ML Pipelines
+
+This module connects raw chatbot text to trained ML triage models.
+
+### Architecture
+
+```text
+User message
+  -> nlp_pipeline.py
+  -> extracted symptoms
+  -> ml_pipeline.py
+  -> triage, risk score, emergency output
+  -> chatbot / LLM response layer
+```
+
+### Required Files
+
+The ML pipeline requires these files from the `scratch/triage-assistant-main/models/` directory:
+
+- `triage_classifier.pkl` — scikit-learn classifier for triage categorization
+- `risk_score_regressor.pkl` — scikit-learn regressor for risk scoring
+- `emergency_detector.pkl` — scikit-learn classifier for emergency detection
+- `symptoms_list.json` — canonical symptom dictionary
+- `severity_dict.json` — symptom severity mappings
+- `feature_names.json` — feature column ordering (critical for consistency)
+
+### Libraries Used
+
+- Python 3.11
+- NumPy: builds numeric feature vectors
+- scikit-learn: model inference, TF-IDF, cosine similarity
+- joblib: loads trained `.pkl` model files
+- json: loads metadata files
+- pathlib: handles model paths
+- re: text preprocessing and symptom matching
+
+**Install**:
+
+```powershell
+pip install numpy==1.26.4 scikit-learn==1.6.1 joblib
+```
+
+⚠️ **Important**: Use `scikit-learn==1.6.1` because the pickle models were trained with that version. Mismatched versions cause deserialization errors.
+
+### NLP Pipeline
+
+**File**: `nlp_pipeline.py`
+
+**Function**:
+
+```python
+run_nlp_pipeline(text: str) -> list[str]
+```
+
+**Responsibilities**:
+
+- Lowercase preprocessing
+- Punctuation cleanup
+- Symptom matching using `symptoms_list.json`
+- Synonym mapping
+- Negation handling
+- TF-IDF fallback when exact matching fails
+
+**Example**:
+
+```python
+from nlp_pipeline import run_nlp_pipeline
+
+symptoms = run_nlp_pipeline("I have breathing difficulty and heart racing")
+print(symptoms)
+```
+
+**Output**:
+
+```python
+["breathlessness", "fast heart rate"]
+```
+
+**Negation Example**:
+
+```python
+run_nlp_pipeline("I have fever but no chest pain")
+```
+
+**Output**:
+
+```python
+["high fever"]
+```
+
+### ML Pipeline
+
+**File**: `ml_pipeline.py`
+
+**Function**:
+
+```python
+run_ml_pipeline(symptoms: list[str]) -> dict
+```
+
+**Loaded Models**:
+
+The ML pipeline loads:
+
+- `triage_classifier.pkl` — Predicts triage category
+- `risk_score_regressor.pkl` — Predicts numeric risk score
+- `emergency_detector.pkl` — Predicts binary emergency flag
+- `symptoms_list.json` — Symptom canonical forms
+- `severity_dict.json` — Severity scores per symptom
+- `feature_names.json` — Feature column ordering
+
+It converts symptoms into the same feature order used during training. It also computes:
+
+- `total_severity_score` — Sum of all symptom severities
+- `symptom_count` — Number of symptoms
+- `max_symptom_severity` — Highest severity
+- `avg_symptom_severity` — Average severity
+- `high_risk_flag` — Binary indicator (1 if risk score > threshold)
+
+**Output**:
+
+```python
+{
+  "triage": "urgent",
+  "risk_score": 0.78,
+  "emergency": False
+}
+```
+
+### Full Usage Example
+
+**Run from the `backend` folder**:
+
+```powershell
+python -c "from nlp_pipeline import run_nlp_pipeline; from ml_pipeline import run_ml_pipeline; text='I have chest pain and dizziness'; symptoms=run_nlp_pipeline(text); prediction=run_ml_pipeline(symptoms); print('Symptoms:', symptoms); print('Prediction:', prediction)"
+```
+
+### Chatbot Integration
+
+```python
+from nlp_pipeline import run_nlp_pipeline
+from ml_pipeline import run_ml_pipeline
+
+def handle_user_message(user_message: str):
+    symptoms = run_nlp_pipeline(user_message)
+    prediction = run_ml_pipeline(symptoms)
+    return {
+        "symptoms": symptoms,
+        "prediction": prediction,
+    }
+```
+
+The chatbot or LLM layer can use:
+
+- `prediction["triage"]` — Recommended triage category
+- `prediction["risk_score"]` — Numeric risk (0–1)
+- `prediction["emergency"]` — Boolean emergency flag
 
 ---
 
